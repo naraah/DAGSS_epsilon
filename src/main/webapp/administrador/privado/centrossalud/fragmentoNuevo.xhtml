@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <h:form id="formularioNuevo">
+            <b:modal id="modalNuevo" class="modal-nuevo-class" title="Crear Centro de Salud">
+                <b:panel title="Crear Centro de Salud" 
+                         rendered="#{not empty gestionCentrosSaludControlador.centroSaludActual}" 
+                         collapsible="false">
+                        <h:outputLabel value="Nombre" for="nombre"/>
+                        <b:inputText id="nombre" value="#{gestionCentrosSaludControlador.centroSaludActual.nombre}" required="true"/>
+
+                        <h:outputLabel value="Domicilio" for="domicilio"/>
+                        <b:inputText id="domicilio" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.domicilio}" required="true"/>
+
+                        <h:outputLabel value="Localidad" for="localidad"/>
+                        <b:inputText id="localidad" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.localidad}" required="true"/>
+
+                        <h:outputLabel value="Cod. Postal" for="codpostal"/>
+                        <b:inputText id="codpostal" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.codigoPostal}" required="true"/>
+
+                        <h:outputLabel value="Provincia" for="provincia"/>
+                        <b:inputText id="provincia" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.provincia}" required="true"/>
+
+                        <h:outputLabel value="Teléfono" for="telefono"/>
+                        <b:inputText id="telefono" value="#{gestionCentrosSaludControlador.centroSaludActual.telefono}" required="true"/>
+                </b:panel>
+                <f:facet name="footer">
+                    <b:commandButton value="Crear" 
+                                     ajax="true" process="@form" update=":formularioListado:tablaListado :mensajesGlobal" 
+                                     actionListener="#{gestionCentrosSaludControlador.doGuardarNuevo()}"  
+                                     oncomplete="$('.modal-nuevo-class').modal('hide')"/>
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+
+    </ui:composition>
+</html>
+

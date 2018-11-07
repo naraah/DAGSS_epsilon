@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <ui:composition>
+        <h:form id="formularioEditar">
+            <b:modal id="modalEditar" class="modal-editar-class" title="Editar Paciente">
+                <b:panel title="Editar Paciente ID. #{gestionPacientesControlador.pacienteActual.id}" 
+                         rendered="#{not empty gestionPacientesControlador.pacienteActual}"
+                         collapsible="false">
+
+                    <h:outputLabel value="Nombre" for="nombre"/>
+                    <b:inputText id="nombre" value="#{gestionPacientesControlador.pacienteActual.nombre}" required="true"/>
+
+                    <h:outputLabel value="Apellidos" for="apellidos"/>
+                    <b:inputText id="apellidos" value="#{gestionPacientesControlador.pacienteActual.apellidos}" required="true"/>
+
+                    <h:outputLabel value="DNI" for="dni"/>
+                    <b:inputText id="dni" value="#{gestionPacientesControlador.pacienteActual.dni}" required="true"/>
+
+                    <h:outputLabel value="Num. Seg. Social" for="numsegsocial"/>
+                    <b:inputText id="numsegsocial" value="#{gestionPacientesControlador.pacienteActual.numeroSeguridadSocial}" required="true"/>
+
+                    <h:outputLabel value="Num. tarjeta sanitaria" for="numtarjetasanitaria"/>
+                    <b:inputText id="numtarjetasanitaria" value="#{gestionPacientesControlador.pacienteActual.numeroTarjetaSanitaria}" required="true"/>
+
+                    <h:outputLabel value="Domicilio" for="domicilio"/>
+                    <b:inputText id="domicilio" value="#{gestionPacientesControlador.pacienteActual.direccion.domicilio}" />
+
+                    <h:outputLabel value="Localidad" for="localidad"/>
+                    <b:inputText id="localidad" value="#{gestionPacientesControlador.pacienteActual.direccion.localidad}" />
+
+                    <h:outputLabel value="Provincia" for="provincia"/>
+                    <b:inputText id="provincia" value="#{gestionPacientesControlador.pacienteActual.direccion.provincia}" />
+
+                    <h:outputLabel value="Cod. postal" for="codpostal"/>
+                    <b:inputText id="codpostal" value="#{gestionPacientesControlador.pacienteActual.direccion.codigoPostal}" />
+
+                    <h:outputLabel value="Teléfono" for="telefono"/>
+                    <b:inputText id="telefono" value="#{gestionPacientesControlador.pacienteActual.telefono}" required="true"/>
+
+                    <h:outputLabel value="e-mail" for="email"/>
+                    <b:inputText id="email" value="#{gestionPacientesControlador.pacienteActual.email}" required="true"/>
+
+                    <h:outputLabel value="Médico" for="medico"/>
+                    <b:selectOneMenu id="medico" 
+                                     value="#{gestionPacientesControlador.pacienteActual.medico}"
+                                     converter="omnifaces.SelectItemsConverter">                
+                        <f:selectItems var="itemMedico" 
+                                       value="#{gestionPacientesControlador.medicos}"                                           
+                                       itemValue="#{itemMedico}" 
+                                       itemLabel="#{itemMedico.nombre} #{itemMedico.apellidos} [#{itemMedico.centroSalud.nombre} (#{itemMedico.centroSalud.direccion.localidad})]" />
+                    </b:selectOneMenu>                        
+
+                    <h:outputLabel value="Password" for="password1"/>
+                    <b:inputSecret id="password1" value="#{gestionPacientesControlador.password1}"/>
+
+                    <h:outputLabel value="Repetir password" for="password2"/>
+                    <b:inputSecret id="password2" value="#{gestionPacientesControlador.password2}"/>
+                </b:panel>
+                <f:facet name="footer">
+                    <b:commandButton value="Guardar" 
+                                     ajax="true" process="@form" update=":formularioListado:tablaListado :mensajesGlobal" 
+                                     actionListener="#{gestionPacientesControlador.doGuardarEditado()}"  
+                                     oncomplete="$('.modal-editar-class').modal('hide')"/>
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>                        
+        </h:form>
+    </ui:composition>
+
+</html>
+

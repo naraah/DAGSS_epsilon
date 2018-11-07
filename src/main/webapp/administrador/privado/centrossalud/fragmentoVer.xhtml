@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition>
+        <h:form id="formularioVer">
+            <b:modal id="modalVer" class="modal-ver-class" title="Detalle Centro de Salud">
+                <b:panel title="Detalle Centro de Salud  ID. #{gestionCentrosSaludControlador.centroSaludActual.id}" 
+                         rendered="#{not empty gestionCentrosSaludControlador.centroSaludActual}" 
+                         collapsible="false">
+                    <b:panelGrid columns="2">                                 
+                        <h:outputLabel value="Nombre" for="nombre"/>
+                        <h:outputText id="nombre" value="#{gestionCentrosSaludControlador.centroSaludActual.nombre}"/>
+
+                        <h:outputLabel value="Domicilio" for="domicilio"/>
+                        <h:outputText id="domicilio" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.domicilio}"/>
+
+                        <h:outputLabel value="Localidad" for="localidad"/>
+                        <h:outputText id="localidad" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.localidad}"/>
+
+                        <h:outputLabel value="Cod. Postal" for="codpostal"/>
+                        <h:outputText id="codpostal" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.codigoPostal}"/>
+
+                        <h:outputLabel value="Provincia" for="provincia"/>
+                        <h:outputText id="provincia" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.provincia}"/>
+
+                        <h:outputLabel value="Teléfono" for="telefono"/>
+                        <h:outputText id="telefono" value="#{gestionCentrosSaludControlador.centroSaludActual.telefono}"/>
+                    </b:panelGrid>
+                </b:panel>
+                <f:facet name="footer">
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+    </ui:composition>
+</html>
+

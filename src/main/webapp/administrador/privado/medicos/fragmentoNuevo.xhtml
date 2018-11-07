@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <ui:composition>
+        <h:form id="formularioNuevo">
+            <b:modal id="modalNuevo" class="modal-nuevo-class" title="Crear Médico">
+                <b:panel title="Crear Médico" 
+                         rendered="#{not empty gestionMedicosControlador.medicoActual}" 
+                         collapsible="false">
+                    <h:outputLabel value="Nombre" for="nombre"/>
+                    <b:inputText id="nombre" value="#{gestionMedicosControlador.medicoActual.nombre}" required="true"/>
+
+                    <h:outputLabel value="Apellidos" for="apellidos"/>
+                    <b:inputText id="apellidos" value="#{gestionMedicosControlador.medicoActual.apellidos}" required="true"/>
+
+                    <h:outputLabel value="DNI" for="dni"/>
+                    <b:inputText id="dni" value="#{gestionMedicosControlador.medicoActual.dni}" required="true"/>
+
+                    <h:outputLabel value="Num. colegiado" for="numcolegiado"/>
+                    <b:inputText id="numcolegiado" value="#{gestionMedicosControlador.medicoActual.numeroColegiado}" required="true"/>
+
+                    <h:outputLabel value="Telefono" for="telefono"/>
+                    <b:inputText id="telefono" value="#{gestionMedicosControlador.medicoActual.telefono}" required="true"/>
+
+                    <h:outputLabel value="e-mail" for="email"/>
+                    <b:inputText id="email" value="#{gestionMedicosControlador.medicoActual.email}" required="true"/>
+
+                    <h:outputLabel value="Centro salud" for="centrosalud"/>
+                    <b:selectOneMenu id="centrosalud" value="#{gestionMedicosControlador.medicoActual.centroSalud}"
+                                     converter="omnifaces.SelectItemsConverter">                
+                        <f:selectItems var="itemCentroSalud" value="#{gestionMedicosControlador.centrosSalud}"                                           
+                                       itemValue="#{itemCentroSalud}" 
+                                       itemLabel="#{itemCentroSalud.nombre} (#{itemCentroSalud.direccion.localidad})" />
+                    </b:selectOneMenu>                        
+
+                    <h:outputLabel value="Password" for="password1"/>
+                    <b:inputSecret id="password1" value="#{gestionMedicosControlador.password1}" required="true"/>
+
+                    <h:outputLabel value="Repetir password" for="password2"/>
+                    <b:inputSecret id="password2" value="#{gestionMedicosControlador.password2}" required="true"/>
+                </b:panel>
+                <f:facet name="footer">
+                    <b:commandButton value="Crear" 
+                                     ajax="true" process="@form" update=":formularioListado:tablaListado :mensajesGlobal" 
+                                     actionListener="#{gestionMedicosControlador.doGuardarNuevo()}"  
+                                     oncomplete="$('.modal-nuevo-class').modal('hide')"/>
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+    </ui:composition>                    
+</html>
+

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+            <ui:define name="contenido">
+                <h:form id="loginForm">
+                    <b:column offset="3" span="6">
+                        <b:panel title="Login de pacientes" look="primary" collapsible="false">
+                            <b:inputText id="dni" label="DNI paciente:" value="#{pacienteControlador.dni}" />
+                            <b:inputText id="numSeguridadSocial" label="Núm. seguridad social:" value="#{pacienteControlador.numeroSeguridadSocial}" />
+                            <b:inputText id="numTarjetaSanitaria" label="Núm. tarjeta sanitaria:" value="#{pacienteControlador.numeroTarjetaSanitaria}" />
+                            <b:inputSecret id="password" label="Contraseña:" value="#{pacienteControlador.password}"/>
+                            <b:commandButton value="Login" action="#{pacienteControlador.doLogin()}" span="2"/>
+
+                            <f:facet name="footer">
+                                Usuario para pruebas: DNI(22222222B) Seg Social (2222222222222) Tarjeta (2222222222) Contraseña (22222)
+                            </f:facet>
+                        </b:panel>
+                    </b:column>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

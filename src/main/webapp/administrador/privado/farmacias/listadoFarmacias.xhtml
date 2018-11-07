@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+        <ui:define name="tituloPagina">
+            <h3> Gestión de Farmacias </h3>
+        </ui:define>
+
+        <ui:define name="menu">
+            <ui:include src="/administrador/plantillas/menuAdministrador.xhtml"/>                
+        </ui:define>
+
+        <ui:define name="contenido">
+            <h:form id="formularioListado">  
+                <b:container fluid="true">
+                    <b:panel title="Listado de Farmacias" collapsible="false">
+                        <b:dataTable id="tablaListado"  class="tablaListadoClass"
+                                     value="#{gestionFarmaciasControlador.farmacias}"
+                                     var="farmacia" 
+                                     page-length="5" page-length-menu="[5,10,20]">
+                            <b:dataTableColumn label="Id">
+                                <h:outputText value="#{farmacia.id}"/>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="NIF" orderable="false">
+                                <h:outputText value="#{farmacia.nif}" />
+                            </b:dataTableColumn>                    
+
+                            <b:dataTableColumn label="Nombre">
+                                <h:outputText value="#{farmacia.nombreFarmacia}" />
+                            </b:dataTableColumn>                    
+
+                            <b:dataTableColumn label="Direccion" orderable="false">
+                                <h:outputText value="#{farmacia.direccion.domicilio}. #{farmacia.direccion.localidad} (#{farmacia.direccion.provincia})" />
+                            </b:dataTableColumn>                    
+
+                            <b:dataTableColumn label="Fecha de alta" orderable="false">
+                                <h:outputText value="#{farmacia.fechaAlta}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </b:dataTableColumn>                        
+
+                            <b:dataTableColumn label="Ultimo acceso" orderable="false">
+                                <h:outputText value="#{farmacia.ultimoAcceso}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="" orderable="false">
+                                <b:commandButton id="botonVer" icon-awesome="eye" tooltip="Ver" ajax="true"  
+                                                 actionListener="#{gestionFarmaciasControlador.doVer(farmacia)}" 
+                                                 update=":formularioVer:modalVer"
+                                                 oncomplete="$('.modal-ver-class').modal('show')" />
+                                <b:commandButton id="botonEditar" icon-awesome="pencil" tooltip="Editar" ajax="true" 
+                                                 actionListener="#{gestionFarmaciasControlador.doEditar(farmacia)}" 
+                                                 update=":formularioEditar:modalEditar"
+                                                 oncomplete="$('.modal-editar-class').modal('show')"/>
+                                <b:commandButton id="botonBorrar" icon-awesome="trash" tooltip="Eliminar" ajax="true" 
+                                                 actionListener="#{gestionFarmaciasControlador.doEliminar(farmacia)}"
+                                                 update="@(.tablaListadoClass)"/>
+                            </b:dataTableColumn>  
+                        </b:dataTable>
+                        <f:facet name="footer">
+                            <b:commandButton id="botonNuevo" icon-awesome="plus" value="Crear Farmacia" tooltip="Nueva farmacia" ajax="true"
+                                             actionListener="#{gestionFarmaciasControlador.doNuevo()}" 
+                                             update=":formularioNuevo:modalNuevo"
+                                             oncomplete="$('.modal-nuevo-class').modal('show')"/>
+                        </f:facet>
+                    </b:panel>
+
+                </b:container>
+            </h:form>         
+
+            <ui:include src="fragmentoNuevo.xhtml"/>
+            <ui:include src="fragmentoEditar.xhtml"/>
+            <ui:include src="fragmentoVer.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

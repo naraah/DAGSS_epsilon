@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <h:form id="formularioEditar">
+            <b:modal id="modalEditar" class="modal-editar-class" title="Editar Farmacia">
+                <b:panel title="Editar Farmacia ID. #{gestionFarmaciasControlador.farmaciaActual.id}" 
+                         rendered="#{not empty gestionFarmaciasControlador.farmaciaActual}"
+                         collapsible="false">
+                    <h:outputLabel value="Nombre" for="nombre"/>
+                    <b:inputText id="nombre" value="#{gestionFarmaciasControlador.farmaciaActual.nombreFarmacia}" />
+
+                    <h:outputLabel value="NIF" for="nif"/>
+                    <b:inputText id="nif" value="#{gestionFarmaciasControlador.farmaciaActual.nif}" />
+
+                    <h:outputLabel value="Domicilio" for="domicilio"/>
+                    <b:inputText id="domicilio" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.domicilio}" />
+
+                    <h:outputLabel value="Localidad" for="localidad"/>
+                    <b:inputText id="localidad" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.localidad}" />
+
+                    <h:outputLabel value="Provincia" for="provincia"/>
+                    <b:inputText id="provincia" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.provincia}" />
+
+                    <h:outputLabel value="Cod. Postal" for="codpostal"/>
+                    <b:inputText id="codpostal" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.codigoPostal}" />
+
+                    <h:outputLabel value="Password" for="password1"/>
+                    <b:inputSecret id="password1" value="#{gestionFarmaciasControlador.password1}" required="true"/>
+
+                    <h:outputLabel value="Repetir password" for="password2"/>
+                    <b:inputSecret id="password2" value="#{gestionFarmaciasControlador.password2}" required="true"/>                        
+                </b:panel>
+                <f:facet name="footer">
+                    <b:commandButton value="Guardar" 
+                                     ajax="true" process="@form" update=":formularioListado:tablaListado :mensajesGlobal" 
+                                     actionListener="#{gestionFarmaciasControlador.doGuardarEditado()}"  
+                                     oncomplete="$('.modal-editar-class').modal('hide')"/>
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>                        
+        </h:form>
+    </ui:composition>    
+</html>
+

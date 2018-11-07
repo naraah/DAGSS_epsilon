@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+        <ui:define name="tituloPagina">
+            <h3> Gestión de Médicos </h3>
+        </ui:define>
+
+        <ui:define name="menu">
+            <ui:include src="/administrador/plantillas/menuAdministrador.xhtml"/>                
+        </ui:define>
+
+        <ui:define name="contenido">
+            <h:form id="formularioListado">     
+                <b:container fluid="true">
+                    <b:panel title="Listado de Médicos" collapsible="false">
+                        <b:dataTable id="tablaListado"   class="tablaListadoClass"
+                                     value="#{gestionMedicosControlador.medicos}"
+                                     var="medico" 
+                                     page-length="5" page-length-menu="[5,10,20]" >
+                            <b:dataTableColumn label="Id" >
+                                <h:outputText value="#{medico.id}"/>                
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="DNI" orderable="false">
+                                <h:outputText value="#{medico.dni}" />
+                            </b:dataTableColumn>                    
+
+                            <b:dataTableColumn label="Nombre y apellidos">
+                                <h:outputText value="#{medico.apellidos}, #{medico.nombre}" />
+                            </b:dataTableColumn>                    
+
+                            <b:dataTableColumn label="Centro de salud">
+                                <h:outputText value="#{medico.centroSalud.nombre}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Teléfono" orderable="false">
+                                <h:outputText value="#{medico.telefono}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="e-mail" orderable="false">
+                                <h:outputText value="#{medico.email}" />
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Fecha de alta" orderable="false">
+                                <h:outputText value="#{medico.fechaAlta}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </b:dataTableColumn>                        
+
+                            <b:dataTableColumn label="Ultimo acceso" orderable="false">
+                                <h:outputText value="#{medico.ultimoAcceso}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="" orderable="false">
+                                <b:commandButton id="botonVer" icon-awesome="eye" tooltip="Ver" ajax="true"  
+                                                 actionListener="#{gestionMedicosControlador.doVer(medico)}" 
+                                                 update=":formularioVer:modalVer"
+                                                 oncomplete="$('.modal-ver-class').modal('show')" />
+                                <b:commandButton id="botonEditar" icon-awesome="pencil" tooltip="Editar" ajax="true" 
+                                                 actionListener="#{gestionMedicosControlador.doEditar(medico)}" 
+                                                 update=":formularioEditar:modalEditar"
+                                                 oncomplete="$('.modal-editar-class').modal('show')"/>
+                                <b:commandButton id="botonBorrar" icon-awesome="trash" tooltip="Eliminar" ajax="true" 
+                                                 actionListener="#{gestionMedicosControlador.doEliminar(medico)}"
+                                                 update="@(.tablaListadoClass)"/>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                        <f:facet name="footer">
+                            <b:commandButton id="botonNuevo" icon-awesome="plus" value="Crear Médico" tooltip="Nuevo médico" ajax="true"
+                                             actionListener="#{gestionMedicosControlador.doNuevo()}" 
+                                             update=":formularioNuevo:modalNuevo"
+                                             oncomplete="$('.modal-nuevo-class').modal('show')"/>
+                        </f:facet>
+                    </b:panel>
+                </b:container>
+            </h:form>         
+
+            <ui:include src="fragmentoNuevo.xhtml"/>
+            <ui:include src="fragmentoEditar.xhtml"/>
+            <ui:include src="fragmentoVer.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

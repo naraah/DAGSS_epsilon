@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition>
+        <h:form id="formularioVer">
+            <b:modal id="modalVer" class="modal-ver-class" title="Detalle Medicamento">
+                <b:panel title="Detalle Medicamento  ID. #{gestionMedicamentosControlador.medicamentoActual.id}" 
+                         rendered="#{not empty gestionMedicamentosControlador.medicamentoActual}" 
+                         collapsible="false">
+                    <b:panelGrid columns="2">  
+                        <h:outputLabel value="Nombre" for="nombre"/>
+                        <h:outputText id="nombre" value="#{gestionMedicamentosControlador.medicamentoActual.nombre}"/>
+
+                        <h:outputLabel value="Familia" for="familia"/>
+                        <h:outputText id="familia" value="#{gestionMedicamentosControlador.medicamentoActual.familia}"/>
+
+                        <h:outputLabel value="Fabricante" for="fabricante"/>
+                        <h:outputText id="fabricante" value="#{gestionMedicamentosControlador.medicamentoActual.fabricante}"/>
+
+                        <h:outputLabel value="Principio activo" for="principioactivo"/>
+                        <h:outputText id="principioactivo" value="#{gestionMedicamentosControlador.medicamentoActual.principioActivo}"/>
+
+                        <h:outputLabel value="Num. dosis por envase" for="numdosis"/>
+                        <h:outputText id="numdosis" value="#{gestionMedicamentosControlador.medicamentoActual.numeroDosis}"/>
+                    </b:panelGrid>
+                </b:panel>
+                <f:facet name="footer">
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+    </ui:composition>    
+</html>
+

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition>
+        <h:form id="formularioVer">
+            <b:modal id="modalVer" class="modal-ver-class" title="Detalle Farmacia">
+                <b:panel title="Detalle Farmacia  ID. #{gestionFarmaciasControlador.farmaciaActual.id}" 
+                         rendered="#{not empty gestionFarmaciasControlador.farmaciaActual}" 
+                         collapsible="false">
+                    <b:panelGrid columns="2">  
+                        <h:outputLabel value="NIF" for="nif"/>
+                        <h:outputText id="nif" value="#{gestionFarmaciasControlador.farmaciaActual.nif}" />
+
+                        <h:outputLabel value="Nombre" for="nombre"/>
+                        <h:outputText id="nombre" value="#{gestionFarmaciasControlador.farmaciaActual.nombreFarmacia}" />
+
+                        <h:outputLabel value="Domicilio" for="domicilio"/>
+                        <h:outputText id="domicilio" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.domicilio}" />
+
+                        <h:outputLabel value="Localidad" for="localidad"/>
+                        <h:outputText id="localidad" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.localidad}" />
+
+                        <h:outputLabel value="Provincia" for="provincia"/>
+                        <h:outputText id="provincia" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.provincia}" />
+
+                        <h:outputLabel value="Cod. Postal" for="codpostal"/>
+                        <h:outputText id="codpostal" value="#{gestionFarmaciasControlador.farmaciaActual.direccion.codigoPostal}" />
+
+                        <h:outputLabel value="Fecha alta" for="fechaalta"/>
+                        <h:outputText id="fechaalta" value="#{gestionFarmaciasControlador.farmaciaActual.fechaAlta}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+
+                        <h:outputLabel value="Último acceso" for="ultimoacceso"/>
+                        <h:outputText id="ultimoacceso" value="#{gestionFarmaciasControlador.farmaciaActual.ultimoAcceso}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </b:panelGrid>
+                </b:panel>
+                <f:facet name="footer">
+                    <b:button value="Cerrar" dismiss="modal"/>
+                </f:facet>
+            </b:modal>
+        </h:form>
+    </ui:composition>    
+</html>
+

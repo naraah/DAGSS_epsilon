@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+        <ui:define name="tituloPagina">
+            <h3>  Gestión de Pacientes </h3>
+        </ui:define>
+
+        <ui:define name="menu">
+            <ui:include src="/administrador/plantillas/menuAdministrador.xhtml"/>                
+        </ui:define>
+
+        <ui:define name="contenido"><h:form id="formularioListado">   
+                <b:container fluid="true">
+                    <b:panel title="Listado de Pacientes" collapsible="false">
+                        <b:dataTable id="tablaListado"  class="tablaListadoClass"
+                                     value="#{gestionPacientesControlador.pacientes}"
+                                     var="paciente" 
+                                     page-length="5" page-length-menu="[5,10,20]">
+                            <b:dataTableColumn label="Datos paciente" orderable="false">
+                                <b:panelGrid columns="2" >
+                                    <h:outputLabel value="Nombre:"/>
+                                    <h:outputText value="#{paciente.apellidos}, #{paciente.nombre}" />
+
+                                    <h:outputLabel value="DNI:"/>
+                                    <h:outputText value="#{paciente.dni}" />
+
+                                    <h:outputLabel value="N. Seg. Social:" />
+                                    <h:outputText value="#{paciente.numeroSeguridadSocial}" />
+
+                                    <h:outputLabel value="Tarjeta Sanitaria:" />
+                                    <h:outputText value="#{paciente.numeroTarjetaSanitaria}" />
+                                </b:panelGrid>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Contacto" orderable="false">  
+                                <b:panelGrid columns="2" >
+                                    <h:outputLabel value="Domicilio:"/>
+                                    <h:outputText value="#{paciente.direccion.domicilio}. #{paciente.direccion.localidad} (#{paciente.direccion.provincia})" />
+
+                                    <h:outputLabel value="Teléfono:"/>
+                                    <h:outputText value="#{paciente.telefono}" />
+
+                                    <h:outputLabel value="e-mail:"/>
+                                    <h:outputText value="#{paciente.email}" />
+                                </b:panelGrid>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="Médico" orderable="false">  
+                                <b:panelGrid columns="2">
+                                    <h:outputLabel value="Médico:"/>
+                                    <h:outputText value="#{paciente.medico.apellidos}, #{paciente.medico.nombre}" />
+
+                                    <h:outputLabel value="C. salud:"/>
+                                    <h:outputText value="#{paciente.medico.centroSalud.nombre} (#{paciente.medico.centroSalud.direccion.localidad})" />
+
+                                    <h:outputLabel value="Teléfono:"/>
+                                    <h:outputText value="#{paciente.medico.telefono}" />
+
+                                    <h:outputLabel value="e-mail:"/>
+                                    <h:outputText value="#{paciente.medico.email}" />
+                                </b:panelGrid>
+                            </b:dataTableColumn>
+
+                            <b:dataTableColumn label="" orderable="false">
+                                <b:commandButton id="botonVer" icon-awesome="eye" tooltip="Ver" ajax="true"  
+                                                 actionListener="#{gestionPacientesControlador.doVer(paciente)}" 
+                                                 update=":formularioVer:modalVer"
+                                                 oncomplete="$('.modal-ver-class').modal('show')" />
+                                <b:commandButton id="botonEditar" icon-awesome="pencil" tooltip="Editar" ajax="true" 
+                                                 actionListener="#{gestionPacientesControlador.doEditar(paciente)}" 
+                                                 update=":formularioEditar:modalEditar"
+                                                 oncomplete="$('.modal-editar-class').modal('show')"/>
+                                <b:commandButton id="botonBorrar" icon-awesome="trash" tooltip="Eliminar" ajax="true" 
+                                                 actionListener="#{gestionPacientesControlador.doEliminar(paciente)}"
+                                                 update="@(.tablaListadoClass)"/>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                        <f:facet name="footer">
+                            <b:commandButton id="botonNuevo" icon-awesome="plus" value="Crear Paciente" tooltip="Nuevo paciente" ajax="true"
+                                             actionListener="#{gestionPacientesControlador.doNuevo()}" 
+                                             update=":formularioNuevo:modalNuevo"
+                                             oncomplete="$('.modal-nuevo-class').modal('show')"/>
+                        </f:facet>                        
+                    </b:panel>
+
+                </b:container>
+            </h:form>         
+
+            <ui:include src="fragmentoNuevo.xhtml"/>
+            <ui:include src="fragmentoEditar.xhtml"/>
+            <ui:include src="fragmentoVer.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+
